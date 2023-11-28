@@ -16,9 +16,9 @@ echo "|              /  \                               |"
 echo "|             /|oo \     Google Drive Downloader  |"
 echo "|            (_|  /_)                             |"
 echo "|             _\`@/_ \       By Resikesh M R      |"
-echo "|            |     | \   \\                       |"
-echo "|            | (*) |  \   ))    India            |"
-echo "|   ______   |__U__| /  \//                       |"
+echo "|            |  =  | \   \\                       |"
+echo "|            |  =  |  \   ))    India            |"
+echo "|   ______   |_____| /  \//                       |"
 echo "|  / FIDO \   _//|| _\   /   FidoNet 1:617/1337   |"
 echo "| (________) (_/(_|(____/                         |"
 echo "|                  (jm)                           |"
@@ -56,11 +56,6 @@ filename="file_downloaded.txt"
 
 # Check if the file already exists
 check_file_exists "$filename"
-
-# Call function to download file with provided ID
-download_file "$file_id"
-
-
 
 # Call function to download file with provided ID
 download_file "$file_id"
