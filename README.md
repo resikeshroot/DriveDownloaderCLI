@@ -18,32 +18,13 @@ To use the DriveDownloaderCLI, follow these steps:
    ```bash
    git clone https://github.com/resikeshroot/DriveDownloaderCLI.git
    cd DriveDownloaderCLI
+   ./drive_downloader.sh
 Install gdown:
 If you haven't installed gdown, you can install it via pip:
 
 bash
 
     pip install gdown
-
-Usage:
-
-    Run the Script:
-    Execute the script and follow the prompts to enter the file ID for download.
-
-    bash
-
-    ./drive_downloader.sh
-
-    File Naming:
-    Adjust the filename variable within the script to specify the desired name for the downloaded file.
-
-    Downloading:
-        Enter the file ID when prompted.
-        The downloaded file will be saved with the specified filename in the directory where the script is executed.
-
-Notes:
-
-    Ensure gdown is installed. If not, the script automatically installs it to facilitate the download process.
-
 Feel free to contribute, report issues, or suggest enhancements!
+
 
