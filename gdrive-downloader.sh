@@ -9,7 +9,11 @@ check_install_gdown() {
     fi
 }
 
-# Display the ASCII art poster
+# Give execute permission to the script itself
+echo "Giving execute permission to the script..."
+chmod +x "$0"
+
+# Display the ASCII art poster and information
 echo "+-------------------------------------------------+"
 echo "|               _                                 |"
 echo "|              /  \                               |"
