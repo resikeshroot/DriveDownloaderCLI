@@ -18,7 +18,7 @@ To use the DriveDownloaderCLI, follow these steps:
    ```bash
    git clone https://github.com/resikeshroot/DriveDownloaderCLI.git
    cd DriveDownloaderCLI
-   ./drive_downloader.sh
+   ./gdrive-downloader.sh
 Install gdown:
 If you haven't installed gdown, you can install it via pip:
 
