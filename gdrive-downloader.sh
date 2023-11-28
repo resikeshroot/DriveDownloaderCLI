@@ -9,20 +9,6 @@ check_install_gdown() {
     fi
 }
 
-# Function to grant execute permission to gdrive-downloader.sh
-grant_execute_permission() {
-    chmod +x gdrive-downloader.sh
-}
-
-# Check if gdrive-downloader.sh exists and grant execute permission if needed
-if [ -f "gdrive-downloader.sh" ]; then
-    echo "Found gdrive-downloader.sh"
-    grant_execute_permission
-    echo "Execute permission granted to gdrive-downloader.sh"
-else
-    echo "gdrive-downloader.sh not found"
-fi
-
 # Display the ASCII art poster and information
 echo "+-------------------------------------------------+"
 echo "|               _                                 |"
