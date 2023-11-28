@@ -15,18 +15,18 @@ echo "|               _                                 |"
 echo "|              /  \                               |"
 echo "|             /|oo \     Google Drive Downloader  |"
 echo "|            (_|  /_)                             |"
-echo "|             _\`@/_ \       By Resikesh M R      |"
+echo "|             _\`@/_ \       By Your Name          |"
 echo "|            |  =  | \   \\                       |"
-echo "|            |  =  |  \   ))    India            |"
+echo "|            |  =  |  \   ))    Your Location    |"
 echo "|   ______   |_____| /  \//                       |"
 echo "|  / FIDO \   _//|| _\   /   FidoNet 1:617/1337   |"
 echo "| (________) (_/(_|(____/                         |"
-echo "|                  (jm)                           |"
+echo "|                  (Your Initials)                |"
 echo "+-------------------------------------------------+"
 echo "Welcome to the Google Drive File Downloader Script!"
 echo "--------------------------------------"
 echo "This script helps you download files from Google Drive."
-echo "Please enter the full Google Drive URL to start the download."
+echo "Please enter the full Google Drive URL or the file ID to start the download."
 echo "--------------------------------------"
 
 # Check and install gdown if not available
@@ -41,31 +41,35 @@ check_file_exists() {
     fi
 }
 
-# Function to extract file ID from URL
-extract_file_id() {
+# Function to extract file ID from full URL
+extract_file_id_from_url() {
     full_url="$1"
-    file_id=$(echo "$full_url" | awk -F'/' '/\/d\//{print $NF}')
-    echo "$file_id"
+    if [[ $full_url == *"drive.google.com"* ]]; then
+        file_id=$(echo "$full_url" | grep -oP '[-\w]{25,}' | head -1)
+        echo "$file_id"
+    else
+        echo "Invalid Google Drive URL."
+        exit 1
+    fi
 }
 
-# Function to download file based on provided ID
+# Function to download file based on provided URL or ID
 download_file() {
-    file_id="$1"
-    echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file with ID: $file_id" >> download_log.txt
-    gdown "https://drive.google.com/uc?id=$file_id"
+    url_or_id="$1"
+    if [[ $url_or_id == *"drive.google.com"* ]]; then
+        file_id=$(extract_file_id_from_url "$url_or_id")
+        download_url="https://drive.google.com/uc?id=$file_id"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file from URL: $url_or_id" >> download_log.txt
+        gdown "$download_url"
+    else
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file with ID: $url_or_id" >> download_log.txt
+        gdown "$url_or_id"
+    fi
 }
 
-# Prompt user to enter full Google Drive URL
-read -p "Enter the full Google Drive URL of the file you want to download: " full_url
+# Prompt user to enter full Google Drive URL or file ID
+read -p "Enter the full Google Drive URL or the file ID: " input_id_or_url
 
-# Extract file ID from URL
-file_id=$(extract_file_id "$full_url")
+# Call function to download file with provided URL or ID
+download_file "$input_id_or_url"
 
-# Define the filename based on the file ID (change 'filename' to your desired name)
-filename="file_downloaded.txt"
-
-# Check if the file already exists
-check_file_exists "$filename"
-
-# Call function to download file with extracted ID
-download_file "$file_id"
