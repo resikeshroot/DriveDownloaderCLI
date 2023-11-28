@@ -1,35 +1,49 @@
 # DriveDownloaderCLI
-# Google Drive File Downloader Script
+
+## Google Drive File Downloader Script
 
 This script simplifies the process of downloading files from Google Drive via the terminal. It utilizes gdown to swiftly retrieve files based on their unique file IDs.
 
-## Features:
+### Features:
 
 - **Streamlined Downloading:** Enter the file ID, and the script handles the rest, swiftly fetching the file from Google Drive.
 - **Check for Existing Files:** Prior to download, the script checks for existing files with the same name to prevent accidental overwriting.
 - **Log Download History:** Maintains a log (`download_log.txt`) recording download activities, including timestamps and file IDs.
 
-## Instructions:
+### Installation:
 
-1. **Run the Script:** Execute the script and follow the prompts to enter the file ID for download.
-2. **File Naming:** Adjust the `filename` variable to specify the desired name for the downloaded file.
+To use the DriveDownloaderCLI, follow these steps:
 
-## Usage:
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/resikeshroot/DriveDownloaderCLI.git
+   cd DriveDownloaderCLI
+Install gdown:
+If you haven't installed gdown, you can install it via pip:
 
-- Run the script and enter the file ID when prompted.
-- The downloaded file will be saved with the specified filename in the directory where the script is executed.
+bash
 
-## Notes:
+    pip install gdown
 
-- Ensure `gdown` is installed. If not, the script automatically installs it to facilitate the download process.
-# gdown
+Usage:
 
-`gdown` is a Python utility that facilitates easy downloading from Google Drive via command-line interface.
+    Run the Script:
+    Execute the script and follow the prompts to enter the file ID for download.
 
-## Installation
+    bash
 
-To install `gdown`, use the following command:
+    ./drive_downloader.sh
 
-```bash
-pip install gdown
+    File Naming:
+    Adjust the filename variable within the script to specify the desired name for the downloaded file.
+
+    Downloading:
+        Enter the file ID when prompted.
+        The downloaded file will be saved with the specified filename in the directory where the script is executed.
+
+Notes:
+
+    Ensure gdown is installed. If not, the script automatically installs it to facilitate the download process.
+
+Feel free to contribute, report issues, or suggest enhancements!
 
