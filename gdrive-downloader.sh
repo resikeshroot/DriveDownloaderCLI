@@ -63,3 +63,7 @@ check_file_exists "$filename"
 
 # Call function to download file with provided ID
 download_file "$file_id"
+
+
+# Call function to download file with provided ID
+download_file "$file_id"
