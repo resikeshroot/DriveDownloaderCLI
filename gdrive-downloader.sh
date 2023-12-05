@@ -9,28 +9,36 @@ check_install_gdown() {
     fi
 }
 
-# Display the ASCII art poster and information
-echo "+-------------------------------------------------+"
-echo "|               _                                 |"
-echo "|              /  \                               |"
-echo "|             /|oo \     Google Drive Downloader  |"
-echo "|            (_|  /_)                             |"
-echo "|             _\`@/_ \       By Your Name          |"
-echo "|            |  =  | \   \\                       |"
-echo "|            |  =  |  \   ))    Your Location    |"
-echo "|   ______   |_____| /  \//                       |"
-echo "|  / FIDO \   _//|| _\   /   FidoNet 1:617/1337   |"
-echo "| (________) (_/(_|(____/                         |"
-echo "|                  (Your Initials)                |"
-echo "+-------------------------------------------------+"
-echo "Welcome to the Google Drive File Downloader Script!"
-echo "--------------------------------------"
-echo "This script helps you download files from Google Drive."
-echo "Please enter the full Google Drive URL or the file ID to start the download."
-echo "--------------------------------------"
+# Function to check and install megatools if not available
+check_install_megatools() {
+    if ! command -v megals &> /dev/null; then
+        echo "megatools is not installed. Please install megatools from https://megatools.megous.com/"
+        exit 1
+    fi
+}
 
-# Check and install gdown if not available
+# Function to download from Mega using megatools
+download_from_mega() {
+    mega_link="$1"
+    megadl "$mega_link"
+}
+
+# Display the ASCII art poster and information
+# (Your ASCII art and information here)
+
+echo "Welcome to the Cloud File Downloader Script!"
+echo "--------------------------------------------"
+echo "This script helps you download files from Google Drive or Mega."
+echo "Please enter the full Google Drive URL or the Mega link to start the download."
+echo "--------------------------------------------"
+
+# Check and install necessary tools if not available
 check_install_gdown
+check_install_megatools
+
+# Create 'downloads' directory if it doesn't exist
+downloads_dir="downloads"
+mkdir -p "$downloads_dir"
 
 # Function to check if the file already exists
 check_file_exists() {
@@ -41,35 +49,29 @@ check_file_exists() {
     fi
 }
 
-# Function to extract file ID from full URL
-extract_file_id_from_url() {
-    full_url="$1"
-    if [[ $full_url == *"drive.google.com"* ]]; then
-        file_id=$(echo "$full_url" | grep -oP '[-\w]{25,}' | head -1)
-        echo "$file_id"
-    else
-        echo "Invalid Google Drive URL."
-        exit 1
-    fi
-}
-
 # Function to download file based on provided URL or ID
 download_file() {
     url_or_id="$1"
     if [[ $url_or_id == *"drive.google.com"* ]]; then
+        # Download from Google Drive
         file_id=$(extract_file_id_from_url "$url_or_id")
         download_url="https://drive.google.com/uc?id=$file_id"
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file from URL: $url_or_id" >> download_log.txt
-        gdown "$download_url"
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file from Google Drive URL: $url_or_id" >> download_log.txt
+        gdown "$download_url" -O "$downloads_dir/file_downloaded.txt"
+    elif [[ $url_or_id == *"mega.nz"* ]]; then
+        # Download from Mega
+        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file from Mega link: $url_or_id" >> download_log.txt
+        download_from_mega "$url_or_id"
     else
-        echo "$(date '+%Y-%m-%d %H:%M:%S') - Downloading file with ID: $url_or_id" >> download_log.txt
-        gdown "$url_or_id"
+        echo "Unsupported link provided."
+        exit 1
     fi
 }
 
-# Prompt user to enter full Google Drive URL or file ID
-read -p "Enter the full Google Drive URL or the file ID: " input_id_or_url
+# Prompt user to enter full Google Drive URL or Mega link
+read -p "Enter the full Google Drive URL or Mega link: " input_url
 
 # Call function to download file with provided URL or ID
-download_file "$input_id_or_url"
+download_file "$input_url"
+
 
